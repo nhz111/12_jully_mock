@@ -1,0 +1,27 @@
+# code for second Highest salary
+select * from(select eid,ename,sal, dense_rank() over(order by salary desc from Employee)) A where drn=2;
+
+
+# workd count program for spark
+# this program run on standalone mode of spark and in this code one file is created name is data.txt in this file program three line is prsent in unstructured first 
+# line is 1) this is java 2) this is python.
+# first we created spark application on driver
+
+rdd=spark.sparkContext.textFile("file:///D:/data.txt")
+
+# flat map convert each word in seperate line
+
+rdd1=rdd.FlatMap(lambda x:x.split(' '))
+
+# map will give the numbers to each word  like (this,1), (is,1),(java,1) like that.
+
+rdd2=rdd1.map(lambda x: (x,1))
+
+
+# reduce by key aggregate the data based on key
+
+rdd3=rdd2.reduceByKey(lambda x,y:x+y))
+
+# final we called action for collecting output.
+
+rdd3.collect()
